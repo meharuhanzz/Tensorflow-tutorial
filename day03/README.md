@@ -103,15 +103,12 @@ behave differently during training vs. inference. Keras's built-in
 `model.fit()` (Day 5) sets this for you automatically; it only matters
 when you write your own training loop.
 
-## Try it yourself
+## Run it
 
-1. Build a `SimpleNet`-style subclass with three `Dense` layers (8 → 8 → 1)
-   and `ReLU` activations between the first two. Call it once on
-   `tf.random.uniform((5, 4))` and print the output shape.
-2. Call `model.summary()` before and after that first call — confirm it
-   only works *after* the model has seen input once.
-3. Print `model.count_params()` and manually verify it against the
-   layer sizes you chose (remember: each `Dense(n)` layer contributes
-   `input_dim * n + n` parameters — the `+ n` is the bias).
-4. Rebuild the same architecture as a `tf.keras.Sequential` instead, and
-   confirm `count_params()` matches your subclassed version.
+```bash
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

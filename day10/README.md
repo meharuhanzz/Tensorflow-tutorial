@@ -78,16 +78,13 @@ plateau a little lower — that's expected, and usually worth it, because
 what you actually care about is performance on data the model **hasn't**
 seen, which is what validation accuracy measures.
 
-## Try it yourself
+## Run it
 
-1. Train Day 9's CNN on a deliberately tiny training set (2-3 images per
-   class) for 40 epochs with no regularization at all. Plot or print
-   train vs. validation accuracy per epoch and confirm you see the
-   overfitting gap.
-2. Add a `Dropout(0.5)` layer right before the final `Dense` classifier
-   and retrain from scratch on the same tiny dataset — compare the gap.
-3. Instead (or as well), add `kernel_regularizer=tf.keras.regularizers.l2(1e-3)`
-   to your `Dense` layers and retrain — compare against both previous runs.
-4. Wrap a longer (100-epoch) training run in `EarlyStopping(monitor="val_loss",
-   patience=5, restore_best_weights=True)` and confirm training actually
-   stops before reaching epoch 100 once validation loss stalls.
+```bash
+python3 make_shapes.py   # once
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

@@ -45,19 +45,31 @@ how you catch that.
 
 Beyond one-shot computations like the confusion matrix above, Keras has
 built-in metric *objects* that accumulate across batches — the same
-mechanism `metrics=["accuracy"]` in `compile()` uses internally:
+mechanism `metrics=["accuracy"]` in `compile()` uses internally. For
+**multi-class** precision/recall, use `class_id` to ask "how good is the
+model specifically at class X" — one metric object per class:
 
 ```python
-precision = tf.keras.metrics.Precision()
-recall = tf.keras.metrics.Recall()
+labels_onehot = tf.one_hot(all_labels, num_classes)      # NOT sparse integers
+probs = tf.nn.softmax(model(images, training=False))       # NOT argmax predictions
 
-for images, labels in val_ds:
-    preds = tf.argmax(model(images, training=False), axis=1)
-    precision.update_state(labels, preds)
-    recall.update_state(labels, preds)
-
-print(f"precision: {precision.result():.3f}, recall: {recall.result():.3f}")
+precision = tf.keras.metrics.Precision(class_id=0)
+recall = tf.keras.metrics.Recall(class_id=0)
+precision.update_state(labels_onehot, probs)
+recall.update_state(labels_onehot, probs)
+print(f"class 0 -- precision: {precision.result():.3f}, recall: {recall.result():.3f}")
 ```
+
+Two real gotchas here, both easy to get wrong the first time:
+
+1. **`Precision()`/`Recall()` without `class_id` are binary metrics.**
+   Feeding them plain multi-class integer labels (`0`, `1`, `2`, ...)
+   directly produces numbers that *look* plausible but are meaningless —
+   they're built for a two-class 0/1 world, not N classes.
+2. **With `class_id`, both `y_true` *and* `y_pred` must be one-hot /
+   per-class-score arrays**, shape `(num_samples, num_classes)` — sparse
+   integer labels (the format `SparseCategoricalCrossentropy` on Day 4
+   wants) silently give wrong results here instead of an error.
 
 - **Precision** — of everything predicted as class X, how much of it
   really was X? (Are we crying wolf too often?)
@@ -71,6 +83,13 @@ and false negatives have different real-world costs — plain accuracy
 alone can look fine while one of these is quietly bad. `.reset_state()`
 clears a metric object's accumulated state, e.g. between epochs.
 
+**One more subtlety**: `Precision`/`Recall` default to a `0.5`
+probability threshold per class, not "whichever class scored highest"
+(argmax). So these numbers will be in the same ballpark as — but won't
+exactly match — the per-class accuracy computed from the confusion
+matrix above, which *is* argmax-based. Both are valid, answering
+slightly different questions.
+
 ## Inspecting individual predictions
 
 Aggregate numbers tell you *that* something's wrong; looking at specific
@@ -78,21 +97,13 @@ predictions (especially wrong, confident ones) is often how you discover
 *why* — an ambiguous image, a mislabeled example, or a genuinely hard
 case worth more training data for.
 
-## Try it yourself
+## Run it
 
-1. Train Day 9's CNN on a 3-class shape dataset, collect
-   `all_preds`/`all_labels` over the validation set, and print
-   `tf.math.confusion_matrix(all_labels, all_preds)`.
-2. Compute per-class accuracy from that confusion matrix and identify
-   which class (if any) the model does worst on.
-3. Compute precision and recall per class using `tf.keras.metrics.Precision`/
-   `Recall` with a `class_id` argument (compute each metric once per
-   class). Note these expect the *raw per-class scores* (logits/softmax
-   output, shape `(num_samples, num_classes)`), not already-argmaxed
-   predictions — pass `model(images, training=False)` directly, not
-   `tf.argmax(...)` of it. Compare the results against what the
-   confusion matrix already told you.
-4. Pick the 5 validation examples the model got *most confidently wrong*
-   (highest softmax probability on an incorrect class) and inspect them —
-   is there a pattern (a specific shape/color combination, a boundary
-   case)?
+```bash
+python3 make_shapes.py   # once
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

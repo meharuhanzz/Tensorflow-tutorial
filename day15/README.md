@@ -80,31 +80,13 @@ assert (original_preds == reloaded_preds).all()
 This "does the save/load round-trip actually work" check is cheap
 insurance worth having in any real project.
 
-## Try it yourself
+## Run it
 
-This capstone extends directly rather than starting fresh — exactly the
-kind of work you'd do on a real project after getting an initial version
-working:
+```bash
+python3 make_shapes.py   # once
+python3 main.py
+```
 
-1. Generate a 4-class shape dataset (circle/square/triangle/star) and
-   load it with `image_dataset_from_directory` (Day 7/9).
-2. Build the MobileNetV2-based model, run the two-stage fine-tuning
-   schedule above, and get a full `tf.math.confusion_matrix` +
-   per-class-accuracy report (Day 14) on the validation set.
-3. Extend the two-stage schedule to three stages: head-only → unfreeze
-   the last 20 layers → unfreeze the last 60 layers, shrinking the
-   learning rate further at each stage. Does the extra stage help on
-   this small a dataset, or is two stages already enough?
-4. Add mixed precision (`set_global_policy("mixed_bfloat16")`, Day 13) to
-   the whole pipeline and confirm the model still trains to a comparable
-   final accuracy.
+## Exercises
 
-## Where to go from here
-
-You've now seen the complete shape of a real TensorFlow/Keras project.
-Natural next steps beyond this course: learning about more advanced
-architectures (Vision Transformers via `tf.keras.applications` or
-Hugging Face's `transformers` library, which has TensorFlow support
-too), experiment tracking tools (TensorBoard — built into Keras via the
-`TensorBoard` callback, worth a look even for small projects), and
-larger, real-world datasets instead of synthetic shapes.
+Open `exercises.py` and work through the four TODOs.

@@ -33,14 +33,20 @@ framework.
 
 ## How each day is organized
 
-Every `dayNN/` folder has one file:
+Every `dayNN/` folder has the same shape:
 
-- **`README.md`** — what you're learning today: explained, with code
-  examples throughout and a "try it yourself" section at the end.
+- **`README.md`** — what you're learning today, explained, with examples
+- **`main.py`** — runnable code demonstrating today's concepts
+- **`exercises.py`** — practice problems (with TODOs) — try these yourself
+
+Some days also include a `make_*.py` script that generates a small
+synthetic dataset the day's code needs — run it once before `main.py`
+(each day's own README says exactly when).
 
 ```bash
 git clone https://github.com/meharuhanzz/Tensorflow-tutorial.git
 cd Tensorflow-tutorial/day01
+python3 main.py
 ```
 
 ## Setup

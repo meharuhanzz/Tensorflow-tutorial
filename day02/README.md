@@ -107,17 +107,12 @@ little in the direction that reduces the loss, repeat. Day 5 turns this
 into the real thing using `tf.keras.Model` (Day 3) and an optimizer
 (Day 4) instead of doing the weight update by hand.
 
-## Try it yourself
+## Run it
 
-1. Create `x = tf.Variable(5.0)`. Inside a tape, compute `y = x**3 - 2*x`.
-   Get `tape.gradient(y, x)` and check it against the hand-derivative
-   `3x^2 - 2` at `x=5`.
-2. Create `a = tf.Variable(1.0)`, `b = tf.Variable(4.0)`. Inside one tape,
-   compute `z = a * b + b**2`, then get both gradients in a single
-   `tape.gradient(z, [a, b])` call.
-3. Create a plain `tf.constant(2.0)` and try differentiating `c**2`
-   *without* `tape.watch(c)` first — see what you get back — then add
-   `tape.watch(c)` and compare.
-4. Write a 10-step manual gradient descent loop minimizing `(w + 3) ** 2`
-   starting from `w = tf.Variable(0.0)`, `learning_rate = 0.1`. What value
-   does `w` converge to?
+```bash
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

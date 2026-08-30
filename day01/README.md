@@ -82,16 +82,12 @@ blocks is still good practice when you want to *force* something onto
 CPU or a specific GPU (common in later days), so we introduce the
 pattern now.
 
-## Try it yourself
+## Run it
 
-Open a Python shell (or a `.py` file) and work through the examples
-above line by line — then try:
+```bash
+python3 main.py
+```
 
-1. Create a 1D tensor of the numbers 10 to 20 (inclusive) with `tf.range()`.
-2. Create two 3x3 random tensors and compute both their element-wise
-   product and their matrix product — confirm the shapes differ.
-3. Create `t = tf.range(24)`, reshape it to `(2, 3, 4)`, and index into it
-   to grab the single number at position `[1, 2, 3]`.
-4. Write device-agnostic code: check `tf.config.list_physical_devices("GPU")`,
-   build a device string, and create a tensor inside a `with tf.device(...)`
-   block.
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

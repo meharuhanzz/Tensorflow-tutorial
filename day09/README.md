@@ -90,19 +90,13 @@ differences in a production version: a much bigger, ImageNet-pretrained
 model instead of training from scratch (Day 11 covers exactly this), and
 a harder, real dataset instead of synthetic shapes.
 
-## Try it yourself
+## Run it
 
-1. Generate (or hand-draw with `PIL.ImageDraw`) a tiny 3-class shape
-   dataset — a handful of circles/squares/triangles per class, randomized
-   position and color — and load it with `image_dataset_from_directory`
-   using `validation_split=0.2`.
-2. Build the Day 8 CNN architecture, `compile()` it, and train with
-   `model.fit()` for 15 epochs. Plot or print `history.history["accuracy"]`
-   vs `history.history["val_accuracy"]` side by side.
-3. Reimplement the same training run with the custom loop instead
-   (`train_one_epoch` / `evaluate` functions above) and confirm you get a
-   comparable final validation accuracy.
-4. Deliberately shrink the training set to just 2-3 images per class and
-   retrain — watch train accuracy shoot to 100% while validation accuracy
-   stays low or noisy. This is overfitting, previewed here, covered
-   properly on Day 10.
+```bash
+python3 make_shapes.py   # once
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

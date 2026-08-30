@@ -91,19 +91,12 @@ common, often better, alternative you'll meet properly on Day 11 —
 averages each feature map down to one number instead of keeping every
 spatial position.)
 
-## Try it yourself
+## Run it
 
-1. Build a small CNN `Sequential`: two `conv_block`s (8 then 16 filters)
-   followed by `Flatten()` and a `Dense(3)` head, for 32x32x3 inputs.
-   Run `model.summary()` after one forward call and read off how the
-   spatial size shrinks (32 → 16 → 8) through the two pooling layers.
-2. Change the first `Conv2D`'s `padding` from `"same"` to `"valid"` and
-   re-run `summary()` — note how the output spatial size differs, and
-   explain why in a comment.
-3. Replace `MaxPooling2D` in one block with `strides=2` directly on the
-   `Conv2D` layer instead (and drop the pooling layer) — confirm the
-   output shape after that block is the same either way.
-4. Swap the final `Flatten()` for `GlobalAveragePooling2D()` instead, and
-   compare `model.count_params()` between the two versions — which has
-   far fewer parameters, and why (hint: think about what `Flatten` does
-   to a large H*W right before a `Dense` layer)?
+```bash
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

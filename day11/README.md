@@ -104,21 +104,13 @@ smaller LR — generalizes to a three-or-more-stage version (unfreezing
 progressively more, shrinking the LR further each time) for harder
 transfer-learning tasks.
 
-## Try it yourself
+## Run it
 
-1. Load `MobileNetV2(input_shape=(96,96,3), include_top=False, weights="imagenet")`,
-   freeze it, and print `len(base_model.layers)` and
-   `model.count_params()` vs. the number of *trainable* parameters
-   (`sum(tf.size(v) for v in model.trainable_variables)`) — confirm the
-   trainable count is tiny compared to the total.
-2. Build the head-only model above for a 3-class problem and train it
-   for 5 epochs on Day 9's shape dataset (resized to 96x96 instead of
-   32x32). Record final validation accuracy.
-3. Unfreeze the last 20 layers, recompile with a 100x smaller learning
-   rate, and continue training for 5 more epochs — did validation
-   accuracy improve further?
-4. Try unfreezing the *entire* base model with the same small LR
-   (skipping the staged approach) and compare against exercise 3's
-   staged result — is it better, worse, or about the same on this small
-   a dataset? (There's no universally "correct" answer here — the point
-   is to see the tradeoff yourself.)
+```bash
+python3 make_shapes.py   # once
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

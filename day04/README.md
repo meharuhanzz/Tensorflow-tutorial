@@ -87,21 +87,12 @@ tf.keras.optimizers.SGD(learning_rate=0.01)
 tf.keras.optimizers.Adam(learning_rate=0.01)
 ```
 
-## Try it yourself
+## Run it
 
-1. Compute `MeanSquaredError()(targets, predictions)` for
-   `targets = [1.0, 2.0, 3.0]` and two different `predictions` arrays —
-   one close to `targets`, one far off. Confirm the loss is bigger for
-   the worse predictions.
-2. Build 3 fake "logits" for a 4-class problem — one that's confidently
-   correct, one that's confidently *wrong*, one that's unconfident/flat —
-   and compute `SparseCategoricalCrossentropy(from_logits=True)` for each
-   against the same true label. Order them from lowest to highest loss
-   and confirm it matches your intuition.
-3. Repeat exercise 2 but set `from_logits=False` by mistake (feeding the
-   same raw logits in) — observe how the loss values change and why
-   that's a bug, not a feature.
-4. Take Day 3's `SimpleNet`, run one manual training step by hand (tape,
-   gradients, `apply_gradients`) against a single batch of random data
-   and a `MeanSquaredError` loss against random targets. Print the loss
-   before and after the step and confirm it went down.
+```bash
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

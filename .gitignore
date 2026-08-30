@@ -5,3 +5,4 @@ __pycache__/
 *.keras
 sample_images/
 shapes/
+_artifacts/

@@ -92,21 +92,12 @@ accuracy cost. It's close to "free" performance, which is why
 `set_global_policy(...)` is one of the first lines in most modern,
 performance-conscious Keras training scripts.
 
-## Try it yourself
+## Run it
 
-1. Print `tf.config.list_physical_devices("GPU")` on your machine and
-   note whether you have one — the rest of the exercises work either way.
-2. Set the global policy to `"mixed_bfloat16"`, build and train Day 9's
-   CNN for a few epochs, and print `model.layers[0].dtype_policy` on any
-   layer to confirm it picked up the policy.
-3. Check `model.dtype` (the *storage* dtype, still `float32`) against the
-   dtype of an actual layer's *compute* output (`model(x).dtype`) — they
-   should differ under a mixed-precision policy. Explain the difference
-   in a comment.
-4. Reset the policy back to `"float32"` (`set_global_policy("float32")`),
-   retrain the identical model from scratch, and compare final training
-   loss between the two runs — on CPU you shouldn't see much difference
-   in speed (the benefit is GPU-tensor-core-specific), but the *loss
-   curve* should look essentially the same either way, which is the real
-   point: reduced precision shouldn't materially hurt what the model
-   learns.
+```bash
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

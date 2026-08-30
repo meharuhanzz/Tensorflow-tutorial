@@ -75,22 +75,12 @@ lesson — and note `EarlyStopping` and `ModelCheckpoint` are commonly
 passed together in the same `callbacks=[...]` list) might actually be a
 worse, overfit version.
 
-## Try it yourself
+## Run it
 
-1. Build and train Day 9's CNN for a couple of epochs. Save its weights
-   with `save_weights`, build a fresh instance of the same architecture,
-   load the weights in, and confirm both models produce identical
-   predictions on the same input.
-2. Save the same trained model with `model.save("full_model.keras")`,
-   reload it with `tf.keras.models.load_model`, and confirm
-   `loaded_model.evaluate(val_ds)` gives the same numbers as the
-   original model.
-3. Set up a `tf.train.Checkpoint` wrapping both your model and its
-   optimizer, save it mid-training, restore it into a *fresh* model +
-   optimizer pair, and confirm training loss continues smoothly from
-   where it left off rather than spiking (a spike would mean the
-   optimizer state wasn't actually restored).
-4. Add a `ModelCheckpoint(save_best_only=True)` callback to a 30-epoch
-   training run on Day 10's overfitting-prone tiny dataset, and confirm
-   the saved file corresponds to an earlier, better epoch than the
-   model's final-epoch weights (which likely overfit by epoch 30).
+```bash
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.

@@ -106,24 +106,13 @@ bigger win for images than it was for Day 6's plain arrays, since image
 decoding is comparatively expensive. Skip `.cache()` if your dataset is
 too large to fit in memory.
 
-## Try it yourself
+## Run it
 
-1. Create a tiny 3-class folder of solid-ish colored squares on disk
-   (a handful of small PNGs per class is enough — generate them with
-   `PIL.Image.new` in a throwaway script, or draw a few by hand), then
-   load it with `image_dataset_from_directory` and print `class_names`
-   and one batch's shape.
-2. Build an `augmentation` `Sequential` block (flip + rotation) and run
-   the *same* image through it twice with `training=True` — confirm the
-   two outputs differ. Run it once more with `training=False` and confirm
-   it's unchanged from the original.
-3. Attach that augmentation block to the front of a tiny placeholder
-   model (even a single `Flatten` + `Dense` is fine for this exercise)
-   and confirm `model(x, training=False)` behaves deterministically while
-   `model(x, training=True)` doesn't.
-4. Look up `tf.keras.applications.resnet50.preprocess_input` and compare
-   what it does to a `[0, 255]` image against
-   `tf.keras.applications.mobilenet_v2.preprocess_input` on the same
-   input — are they identical? (They're not — different pretrained
-   models were trained with different preprocessing conventions, which
-   is exactly why you must match the function to the model.)
+```bash
+python3 make_sample_images.py   # once
+python3 main.py
+```
+
+## Exercises
+
+Open `exercises.py` and work through the four TODOs.
